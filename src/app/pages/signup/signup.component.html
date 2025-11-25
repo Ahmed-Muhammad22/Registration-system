@@ -1,0 +1,187 @@
+<div
+  [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
+  class="min-vh-100 d-flex align-items-center justify-content-center bg-dark p-3"
+>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <h1>{{ labels[currentLang].title }}</h1>
+    <button type="button" class="lang" (click)="toggleLanguage()">
+      <i class="fa-solid fa-globe"></i>
+      {{ currentLang === "en" ? "عربي" : "English" }}
+    </button>
+    <!-- Company Name (English) -->
+    <div class="mb-3">
+      <label for="nameEn">{{ labels[currentLang].nameEn }}</label>
+      <input
+        id="nameEn"
+        formControlName="nameEn"
+        type="text"
+        placeholder="{{ labels[currentLang].nameEn }}"
+        class="form-control"
+      />
+      @if (registerForm.get("nameEn")?.errors &&
+      registerForm.get("nameEn")?.touched ){
+      <div class="error" role="alert">
+        <div>
+          <ul class="list-unstyled list-inside">
+            @if (registerForm.get("nameEn")?.getError('required')) {
+            <li>{{ labels[currentLang].nameEnRequired }}</li>
+            } @if (registerForm.get("nameEn")?.getError('minlength')) {
+            <li>{{ labels[currentLang].nameEnMin }}</li>
+            } @if (registerForm.get("nameEn")?.getError('maxlength')) {
+            <li>{{ labels[currentLang].nameEnMax }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Company Name (Arabic) -->
+    <div class="mb-3">
+      <label for="nameAr">{{ labels[currentLang].nameAr }}</label>
+      <input
+        id="nameAr"
+        formControlName="nameAr"
+        type="text"
+        placeholder="{{ labels[currentLang].nameAr }}"
+        class="form-control"
+      />
+      @if (registerForm.get("nameAr")?.errors &&
+      registerForm.get("nameAr")?.touched ){
+      <div class="error" role="alert">
+        <div>
+          <ul class="list-unstyled list-inside">
+            @if (registerForm.get("nameAr")?.getError('required')) {
+            <li>{{ labels[currentLang].nameArRequired }}</li>
+            } @if (registerForm.get("nameAr")?.getError('minlength')) {
+            <li>{{ labels[currentLang].nameArMin }}</li>
+            } @if (registerForm.get("nameAr")?.getError('maxlength')) {
+            <li>{{ labels[currentLang].nameArMax }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email">{{ labels[currentLang].email }}</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        placeholder="{{ labels[currentLang].email }}"
+        class="form-control"
+      />
+      @if (registerForm.get("email")?.errors &&
+      registerForm.get("email")?.touched ){
+      <div class="error" role="alert">
+        <div>
+          <ul class="list-unstyled list-inside">
+            @if (registerForm.get("email")?.getError('required')) {
+            <li>{{ labels[currentLang].emailRequired }}</li>
+            } @if (registerForm.get("email")?.getError('email')) {
+            <li>{{ labels[currentLang].emailInvalid }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Phone Number -->
+    <div class="mb-3">
+      <label for="phoneNumber">{{ labels[currentLang].phoneNumber }}</label>
+      <input
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        type="text"
+        placeholder="{{ labels[currentLang].phoneNumber }}"
+        class="form-control"
+      />
+      @if (registerForm.get("phoneNumber")?.errors &&
+      registerForm.get("phoneNumber")?.touched ){
+      <div class="error" role="alert">
+        <div>
+          <ul class="list-unstyled list-inside">
+            @if (registerForm.get("phoneNumber")?.getError('required')) {
+            <li>{{ labels[currentLang].phoneRequired }}</li>
+            } @if (registerForm.get("phoneNumber")?.getError('pattern')) {
+            <li>{{ labels[currentLang].phoneInvalid }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Website URL -->
+    <div class="mb-3">
+      <label for="websiteUrl">{{ labels[currentLang].websiteUrl }}</label>
+      <input
+        id="websiteUrl"
+        formControlName="websiteUrl"
+        type="text"
+        placeholder="{{ labels[currentLang].websiteUrl }}"
+        class="form-control"
+      />
+      @if (registerForm.get("websiteUrl")?.errors &&
+      registerForm.get("websiteUrl")?.touched ){
+      <div class="error" role="alert">
+        <div>
+          <ul class="list-unstyled list-inside">
+            @if (registerForm.get("websiteUrl")?.getError('required')) {
+            <li>{{ labels[currentLang].enterWebsite }}</li>
+            } @if (registerForm.get("websiteUrl")?.getError('pattern')) {
+            <li>{{ labels[currentLang].websiteInvalid }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Company Logo -->
+    <div class="mb-3">
+      <label for="logo">{{ labels[currentLang].companyLogo }}</label>
+      <input
+        id="logo"
+        type="file"
+        accept="image/*"
+        (change)="onLogoSelected($event)"
+        class="form-control"
+      />
+
+      <!-- Show selected file -->
+      <div class="mt-3 text-success" *ngIf="logoFile">
+        Selected: <strong>{{ logoFile.name }}</strong>
+      </div>
+
+      <!-- Show preview -->
+      <div class="text-center mt-3" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="Logo Preview" />
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="isLoading">
+      <span *ngIf="!isLoading">{{ labels[currentLang].signup }}</span>
+      <span *ngIf="isLoading">{{ labels[currentLang].creating }}</span>
+    </button>
+
+    <!-- Success & Error Messages -->
+    <div class="alert alert-success mt-3" *ngIf="success">
+      {{ labels[currentLang].success }}
+    </div>
+    <div class="alert alert-danger mt-3" *ngIf="msgError">
+      {{ labels[currentLang].msgError }}
+    </div>
+
+    <!-- Login link -->
+    <p class="mt-5 text-center">
+      {{ labels[currentLang].haveAccount }}
+      <a routerLink="/login">{{ labels[currentLang].login }}</a>
+    </p>
+  </form>
+</div>

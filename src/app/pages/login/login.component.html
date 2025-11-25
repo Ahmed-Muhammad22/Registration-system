@@ -1,0 +1,73 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to your account</p>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <!-- Email -->
+      <div class="input-group">
+        <input
+          type="email"
+          placeholder="Email Address"
+          [(ngModel)]="email"
+          name="email"
+          required
+          email
+          class="form-control"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          class="form-control"
+        />
+        <i
+          class="fa-solid eye-icon"
+          [class.fa-eye]="!showPassword"
+          [class.fa-eye-slash]="showPassword"
+          (click)="showPassword = !showPassword"
+        ></i>
+      </div>
+
+      <div class="options">
+        <label class="remember-me">
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+          <span>Remember me</span>
+        </label>
+        <a routerLink="/forgot-password">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="!loginForm.valid">
+        Sign In
+      </button>
+    </form>
+
+    <div class="divider">or continue with</div>
+
+    <div class="social-buttons">
+      <button type="button" class="social-btn" (click)="loginWithGoogle()">
+        <img
+          src="https://www.google.com/favicon.ico"
+          width="16"
+          height="16"
+          alt="Google"
+        />
+        Google
+      </button>
+      <button type="button" class="social-btn" (click)="loginWithGithub()">
+        <i class="fab fa-github"></i> GitHub
+      </button>
+    </div>
+
+    <div class="signup-text">
+      Don't have an account?
+      <a routerLink="/signup">Sign up</a>
+    </div>
+  </div>
+</div>
