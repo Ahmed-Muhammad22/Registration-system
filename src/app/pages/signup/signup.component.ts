@@ -84,11 +84,11 @@ export class SignupComponent {
       }
 
       setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 1500);
+        this.router.navigate(['/set-password'], {queryParams: { otpCode: res.otpCode }});
+      }, 500);
 
     } catch (err: any) {
-      this.msgError = err.error?.message || 'Check the data and try again';
+      this.msgError = err.error || 'Check the data and try again';
     } finally {
       this.isLoading = false;
     }
@@ -141,7 +141,7 @@ export class SignupComponent {
     successCreated: 'Company account created successfully!',
     errorOccurred: 'An error occurred. Please try again.',
 
-    msgError: 'Error',
+    msgError: 'Company with this email already exists',
     success: 'Success',
 
     langBtn: 'عربي'
@@ -192,7 +192,7 @@ export class SignupComponent {
     successCreated: 'تم إنشاء حساب الشركة بنجاح!',
     errorOccurred: 'حدث خطأ، حاول مرة أخرى.',
 
-    msgError: 'خطأ',
+    msgError: 'شركة بهذا البريد الإلكتروني موجودة بالفعل',
     success: 'نجاح',
 
     langBtn: 'EN'

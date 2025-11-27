@@ -20,6 +20,7 @@ export const routes: Routes = [
 },
 {
   path: 'set-password',
+  title:"set-password",
   loadComponent: () =>
     import('./pages/setpassword/setpassword.component').then(m => m.SetpasswordComponent)
 },

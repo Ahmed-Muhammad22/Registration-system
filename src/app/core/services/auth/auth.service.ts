@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environement';
-import { CompanyRegistrationRequest, LoginRequest, LoginResponse, SendOtpRequest, SetPasswordRequest } from '../../../Shared/Models/company.model'
+import { CompanyRegistrationRequest, LoginRequest, LoginResponse,SendOtpRequest, SetPasswordRequest } from '../../../Shared/Models/company.model'
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -24,9 +24,9 @@ export class AuthService {
   }
 
   // ----------------- SIGNUP -----------------
-  getSignup(data: CompanyRegistrationRequest) {
+  getSignup(data: CompanyRegistrationRequest): Observable<any> {
   return this.httpClient.post(
-    'http://dev-stsandbox.rookierise.org/api/CompanyPortal/signUp-Company',
+    environment.baseUrl +'CompanyPortal/signUp-Company',
     data,
     {
       headers: { 'Content-Type': 'application/json' }
