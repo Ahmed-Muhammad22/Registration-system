@@ -7,13 +7,13 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
       // Log error safely
       console.log('Interceptor Error:', {
         status: err.status,
-        message: err.error?.message || err.message,
+        message: err.error.errors|| err.error.message,
         error: err.error
       });
 
       // Transform error to consistent format
       const errorResponse = {
-        message: err.error?.message || err.message || 'An error occurred',
+        message: err.error.errors || err.error.message || 'An error occurred',
         status: err.status
       };
 

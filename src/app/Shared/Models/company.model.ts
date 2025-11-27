@@ -11,8 +11,8 @@ export interface CompanyRegistrationRequest {
 
 export interface SetPasswordRequest {
   email: string;
-  otpCode: string; 
-  newPassword: string; 
+  otp: string; 
+  password: string; 
   confirmPassword: string;
 }
 
